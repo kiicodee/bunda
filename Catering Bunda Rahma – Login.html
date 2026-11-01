@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Login – Catering Bunda Rahma</title>
+  <meta name="description" content="Masuk ke akun Catering Bunda Rahma untuk mengelola pesanan dan langganan Anda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <script src="navbar.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="Catering Bunda Rahma – Landing Page.html" aria-label="Catering Bunda Rahma">
+        <img src="logo.webp" alt="Logo Catering Bunda Rahma" width="48" height="48">
+        <span class="brand-text">
+          <span class="brand-title">Catering Bunda Rahma</span>
+        </span>
+      </a>
+      <button class="burger" aria-label="Buka menu" aria-expanded="false" aria-controls="nav"><span></span></button>
+      <nav class="nav" id="nav" aria-label="Navigasi utama">
+        <a href="Catering Bunda Rahma – Landing Page.html">Beranda</a>
+        <a href="Catering Bunda Rahma – Landing Page.html#tentang">Tentang</a>
+        <a href="Catering Bunda Rahma – Pilih Menu.html">Menu</a>
+        <a href="Catering Bunda Rahma – Landing Page.html#langganan">Langganan</a>
+        <a href="Catering Bunda Rahma – Riwayat Pesanan.html">Riwayat</a>
+        <a class="btn-nav active" href="Catering Bunda Rahma – Login.html" aria-current="page">Masuk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-visual">
+        <img src="auth_side.webp" alt="Sajian Lezat Catering Bunda Rahma" width="540" height="680" loading="eager">
+        <div class="auth-visual-overlay">
+          <h3>Catering Bunda Rahma</h3>
+          <p>Enak • Lezat • Tepat Waktu</p>
+        </div>
+      </div>
+      <div class="auth-form-card">
+        <section aria-labelledby="judul">
+          <h1 id="judul">Masuk ke Akun</h1>
+
+          <div class="role-tabs" role="tablist" aria-label="Pilih peran akun">
+            <button type="button" class="role-tab active" id="tabCustomer" role="tab" aria-selected="true">
+              <span aria-hidden="true">👤</span> Pelanggan
+            </button>
+            <button type="button" class="role-tab" id="tabAdmin" role="tab" aria-selected="false">
+              <span aria-hidden="true">⚡</span> Admin Catering
+            </button>
+          </div>
+
+          <form id="form" novalidate>
+            <div class="auth-field">
+              <label for="email">Email</label>
+              <div class="auth-input-wrap">
+                <input class="auth-input" id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                  placeholder="nama@email.com" required aria-describedby="e-email">
+              </div>
+              <p class="auth-err" id="e-email" aria-live="polite"></p>
+            </div>
+
+            <div class="auth-field">
+              <label for="password">Password</label>
+              <div class="auth-input-wrap">
+                <input class="auth-input" id="password" name="password" type="password" autocomplete="current-password"
+                  placeholder="Masukkan password" required aria-describedby="e-password">
+                <button class="pw-toggle" type="button" aria-label="Tampilkan password" aria-pressed="false">
+                  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path
+                      d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4-.9M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+                  </svg>
+                </button>
+              </div>
+              <p class="auth-err" id="e-password" aria-live="polite"></p>
+            </div>
+
+            <button class="auth-submit" type="submit" id="submitBtn">Masuk</button>
+            <p class="auth-status" id="status" role="status"></p>
+          </form>
+
+          <!-- Quick 1-Click Demo Login -->
+          <div class="quick-demo-box">
+            <p class="quick-demo-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              Akun Demo (1-Klik)
+            </p>
+            <div class="quick-demo-grid">
+              <button type="button" class="btn-demo" id="demoUserBtn">
+                <span><span aria-hidden="true">👤</span> Akun Pelanggan</span>
+                <span class="small">pelanggan@cateringbunda.id</span>
+              </button>
+              <button type="button" class="btn-demo admin-demo" id="demoAdminBtn">
+                <span><span aria-hidden="true">⚡</span> Akun Admin</span>
+                <span class="small">admin@cateringbunda.id</span>
+              </button>
+            </div>
+          </div>
+
+          <p class="auth-alt">Belum punya akun? <a href="Catering Bunda Rahma – Registrasi.html">Register di sini</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-min">
+        <a class="footer-brand-min" href="Catering Bunda Rahma – Landing Page.html" aria-label="Catering Bunda Rahma">
+          <img src="logo.webp" alt="" width="26" height="26" loading="lazy">
+          <span>Catering Bunda Rahma</span>
+        </a>
+        <div class="footer-right">
+          <p class="footer-copy">&copy; 2026 Catering Bunda Rahma. Semua Hak Dilindungi.</p>
+          <span class="footer-sep">•</span>
+          <span class="footer-tag">Enak &bull; Lezat &bull; Tepat Waktu</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById('form');
+      var status = document.getElementById('status');
+      var submitBtn = document.getElementById('submitBtn');
+      var eyeBtn = form.querySelector('.pw-toggle');
+      var pw = document.getElementById('password');
+      var email = document.getElementById('email');
+      var demoUserBtn = document.getElementById('demoUserBtn');
+      var demoAdminBtn = document.getElementById('demoAdminBtn');
+
+      var tabCustomer = document.getElementById('tabCustomer');
+      var tabAdmin = document.getElementById('tabAdmin');
+
+      function setRole(role) {
+        var isAdm = role === 'admin';
+        if (tabCustomer) {
+          tabCustomer.classList.toggle('active', !isAdm);
+          tabCustomer.setAttribute('aria-selected', !isAdm ? 'true' : 'false');
+        }
+        if (tabAdmin) {
+          tabAdmin.classList.toggle('active', isAdm);
+          tabAdmin.setAttribute('aria-selected', isAdm ? 'true' : 'false');
+        }
+        email.placeholder = isAdm ? 'admin@cateringbunda.id' : 'nama@email.com';
+      }
+
+      if (tabCustomer) tabCustomer.addEventListener('click', function () { setRole('customer'); email.focus(); });
+      if (tabAdmin) tabAdmin.addEventListener('click', function () { setRole('admin'); email.focus(); });
+
+      // Quick Demo Buttons
+      if (demoUserBtn) {
+        demoUserBtn.addEventListener('click', function () {
+          setRole('customer');
+          email.value = 'pelanggan@cateringbunda.id';
+          pw.value = 'rahasia123';
+          check('email'); check('password');
+          submitForm();
+        });
+      }
+      if (demoAdminBtn) {
+        demoAdminBtn.addEventListener('click', function () {
+          setRole('admin');
+          email.value = 'admin@cateringbunda.id';
+          pw.value = 'admin123';
+          check('email'); check('password');
+          submitForm();
+        });
+      }
+
+      if (eyeBtn) {
+        eyeBtn.addEventListener('click', function () {
+          var show = pw.type === 'password';
+          pw.type = show ? 'text' : 'password';
+          eyeBtn.setAttribute('aria-pressed', show);
+          eyeBtn.setAttribute('aria-label', show ? 'Sembunyikan password' : 'Tampilkan password');
+        });
+      }
+
+      var rules = {
+        email: function (v) { if (!v.trim()) return 'Email wajib diisi.'; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Format email tidak valid.'; },
+        password: function (v) { if (!v) return 'Password wajib diisi.'; return v.length < 6 ? 'Password minimal 6 karakter.' : ''; }
+      };
+
+      function check(id) {
+        var el = document.getElementById(id), msg = rules[id](el.value);
+        document.getElementById('e-' + id).textContent = msg;
+        el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+        return !msg;
+      }
+
+      Object.keys(rules).forEach(function (id) {
+        var el = document.getElementById(id);
+        el.addEventListener('blur', function () { if (el.value) check(id); });
+        el.addEventListener('input', function () { if (el.getAttribute('aria-invalid') === 'true') check(id); });
+      });
+
+      function submitForm() {
+        status.textContent = '';
+        var ok = Object.keys(rules).map(check).every(Boolean);
+        if (!ok) { form.querySelector('[aria-invalid="true"]').focus(); return; }
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Memproses…';
+        var emailVal = (email.value || '').trim().toLowerCase();
+        var isAdmin = emailVal.indexOf('admin') !== -1 || emailVal === 'owner@cateringbunda.id';
+        setTimeout(function () {
+          status.textContent = '✓ Login Berhasil! Mengalihkan...';
+          try {
+            localStorage.setItem('brahma_logged_in', 'true');
+            localStorage.setItem('brahma_user_role', isAdmin ? 'admin' : 'customer');
+            localStorage.setItem('brahma_user_email', emailVal);
+          } catch (e) {}
+          setTimeout(function () {
+            window.location.href = isAdmin
+              ? 'Catering Bunda Rahma \u2013 Kelola Pelanggan.html'
+              : 'Catering Bunda Rahma \u2013 Landing Page.html';
+          }, 500);
+        }, 400);
+      }
+
+      form.addEventListener('submit', function (e) { e.preventDefault(); submitForm(); });
+    })();
+  </script>
+</body>
+
+</html>

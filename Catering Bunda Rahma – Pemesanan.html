@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pemesanan – Catering Bunda Rahma</title>
+<meta name="description" content="Pesan paket katering harian Catering Bunda Rahma - pilih paket, isi data, dan konfirmasi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<script src="navbar.js" defer></script>
+<style>
+/* Page-specific: Pemesanan checkout form styles */
+:root{
+  --field:#3a120c; --ico:#5c1d14; --btn:#740a03; --btn-hi:#9c1409; --gold:#fae491;
+  --pad:clamp(20px,5vw,72px);
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+p{margin:0}
+.i{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+
+
+
+
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--text);text-decoration:none}
+.brand .logo{width:40px;height:40px;border-radius:10px;background:var(--red);display:grid;place-items:center;flex:none;font-size:1.2rem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 40px;flex-wrap:wrap;margin-bottom:36px}
+h1{margin:0 0 12px;max-width:11em;font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.12;font-weight:700;letter-spacing:-.01em}
+.head p{color:var(--muted);font-size:clamp(.95rem,1.4vw,1.05rem)}
+.steps{list-style:none;margin:0 0 6px;padding:0;display:flex;align-items:center;gap:14px}
+.steps li{display:flex;align-items:center;gap:10px}
+.steps .dot{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge);background:#45130c;color:var(--dim)}
+.steps .dot .i{width:17px;height:17px}
+.steps small{display:block;font-size:.66rem;font-weight:500;color:var(--dim);line-height:1.2}
+.steps strong{display:block;font-size:.9rem;font-weight:600;line-height:1.3;color:var(--dim)}
+.steps .done .dot{background:var(--btn);border-color:var(--red);color:#fff}
+.steps .done strong{color:var(--text)}
+.steps .now .dot{background:var(--red);border-color:var(--red);color:#fff}
+.steps .now small{color:var(--red)}.steps .now strong{color:var(--text)}
+.steps .bar{width:28px;height:1px;background:var(--edge)}
+
+/* layout */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:28px;align-items:start;width:100%}
+@media (max-width:1040px){.grid{grid-template-columns:1fr}.side{position:static}}
+.panel{background:var(--card);border:1px solid var(--edge);border-radius:20px}
+.form{padding:clamp(20px,3vw,28px)}
+.sec{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sec .ic{width:38px;height:38px;border-radius:12px;background:var(--ico);display:grid;place-items:center;flex:none;color:var(--text)}
+.sec h2{margin:0;font-size:1.1rem;font-weight:600;line-height:1.3}
+.sec p{font-size:.78rem;color:var(--dim)}
+.sec .loc{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--red);font:600 .78rem Poppins,sans-serif;cursor:pointer;padding:8px 4px}
+.sec .loc:hover{color:#e5473a}
+hr{border:0;border-top:1px solid var(--field);margin:28px 0}
+.row{display:grid;gap:16px;margin-bottom:18px}
+.r2{grid-template-columns:1fr 1fr}
+.r3{grid-template-columns:1fr 190px}
+label,.lbl{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:8px}
+.ctl{position:relative;display:flex;align-items:center;gap:12px;background:var(--field);border:1px solid var(--edge);border-radius:12px;padding:0 16px;min-height:51px;transition:border-color .2s,box-shadow .2s}
+.ctl:hover{border-color:#7d2c22}
+.ctl:focus-within{border-color:var(--red);box-shadow:0 0 0 3px rgba(201,43,29,.3)}
+.ctl.bad{border-color:var(--err)}
+.ctl .i{color:var(--dim)}
+.ctl input,.ctl textarea{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);font:400 .92rem/1.5 Poppins,sans-serif;padding:14px 0}
+.ctl textarea{resize:vertical;min-height:84px;display:block}
+.ctl.area{align-items:flex-start}.ctl.area .i{margin-top:16px}
+::placeholder{color:#8a6a63}
+.err{min-height:1.2em;margin-top:5px;font-size:.76rem;color:var(--err)}
+.hint{margin:-4px 0 18px;font-size:.74rem;color:var(--dim)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;border:0;padding:0;margin:0 0 20px}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--edge);background:var(--card);color:var(--muted);font-size:.8rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s}
+.chip span:hover{border-color:#7d2c22}
+.chip input:checked+span{background:var(--btn);border-color:var(--red);color:#fff}
+.chip input:focus-visible+span{outline:3px solid var(--gold);outline-offset:3px}
+
+.save{display:flex;align-items:center;gap:14px;background:var(--field);border:1px solid var(--edge);border-radius:14px;padding:14px 16px;cursor:pointer}
+.save input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;border-radius:6px;border:1px solid var(--edge);background:var(--card);cursor:pointer;display:grid;place-items:center}
+.save input:checked{background:var(--btn) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6 11.500l3.500 3.500L16 8' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100%;border-color:var(--red)}
+.save b{display:block;font-size:.85rem;font-weight:600}
+.save small{display:block;font-size:.72rem;color:var(--dim)}
+.state{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:var(--ico);border-radius:999px;padding:5px 12px;font-size:.7rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.state.off::before{background:var(--dim)}
+
+/* summary */
+.side{position:sticky;top:24px;display:grid;gap:16px}
+.sum{padding:22px 22px 20px}
+.sum-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px}
+.sum-h h2{margin:0;font-size:1.25rem;font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--btn);border-radius:999px;padding:5px 12px;font-size:.68rem;font-weight:600;white-space:nowrap}
+.pill .i{width:13px;height:13px}
+.pk{display:flex;gap:16px}
+.pk img{width:84px;height:84px;border-radius:12px;object-fit:cover;flex:none}
+.pk-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.pk h3{margin:0;font-size:1.1rem;font-weight:600}
+.lnk{color:var(--red);font-size:.74rem;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.lnk:hover{color:#e5473a}
+.pk p{font-size:.74rem;color:var(--muted);margin:4px 0 8px}
+.save-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--edge);background:#45130c;color:var(--gold);border-radius:999px;padding:3px 10px;font-size:.68rem;font-weight:600}
+.save-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.sum hr{margin:20px 0}
+.jh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.jh h3{margin:0;font-size:.88rem;font-weight:600}
+.jd{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}
+.jd div{display:flex;align-items:center;gap:10px}
+.jd .ic{width:34px;height:34px;border-radius:10px;background:var(--ico);display:grid;place-items:center;flex:none}
+.jd .ic .i{width:16px;height:16px}
+.jd small{display:block;font-size:.62rem;color:var(--dim);line-height:1.3}
+.jd b{display:block;font-size:.76rem;font-weight:600;line-height:1.35}
+.pr{display:grid;gap:8px;font-size:.78rem;color:var(--muted)}
+.pr div{display:flex;justify-content:space-between;gap:10px}
+.pr b{font-weight:600;color:var(--text)}
+.pr .g{color:var(--gold)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;padding-top:16px;border-top:1px solid var(--edge);font-size:.88rem;font-weight:600}
+.tot strong{font-size:1.5rem;font-weight:700}
+.tax{text-align:right;font-size:.68rem;color:var(--dim);margin:6px 0 18px}
+.go{width:100%;display:block;background:var(--btn);color:#fff;border:0;border-radius:14px;padding:16px;font:600 .95rem Poppins,sans-serif;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.3);transition:background .2s,transform .2s}
+.go:hover{background:var(--btn-hi)}.go:active{transform:scale(.99)}.go[disabled]{opacity:.7;cursor:progress}
+.status{min-height:1.3em;margin-top:12px;text-align:center;font-size:.8rem;color:var(--gold)}
+.safe{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.7rem;color:var(--dim);margin-top:6px}
+.help{display:flex;align-items:center;gap:14px;padding:14px 18px}
+.help .ic{width:38px;height:38px;border-radius:50%;background:var(--ico);display:grid;place-items:center;flex:none}
+.help b{display:block;font-size:.82rem;font-weight:600}
+.help small{display:block;font-size:.7rem;color:var(--dim);line-height:1.4}
+.help .lnk{margin-left:auto;text-decoration:none;white-space:nowrap}
+
+@media (prefers-reduced-motion:no-preference){.panel{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}.side .panel:nth-child(2){animation-delay:.08s}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+
+@media (max-width:1040px){
+  .grid{grid-template-columns:1fr}
+  .side{position:static;max-width:none}
+}
+@media (max-width:640px){
+  .r2,.r3{grid-template-columns:1fr}
+  .steps{gap:8px;width:100%}.steps li:not(.now) div{display:none}.steps .bar{flex:1;min-width:12px}
+  .sec{flex-wrap:wrap}.sec .loc{margin-left:52px;padding-top:0}
+  .save{flex-wrap:wrap}.state{margin-left:36px}
+  .help{flex-wrap:wrap}
+}
+
+/* Use Case 6: Confirmation & Invoice Dialogs */
+.order-dialog{
+  position:fixed;width:min(540px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin:auto;
+  padding:0;border:1px solid var(--edge);border-radius:24px;background:var(--card);color:var(--text);
+  overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+.order-dialog::backdrop{background:rgba(20,4,2,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.od-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:24px 28px 16px;border-bottom:1px solid var(--edge)}
+.od-head h2{margin:0;font-size:1.3rem;font-weight:700}
+.od-close{width:34px;height:34px;border-radius:50%;border:0;background:var(--bg);display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:background .2s}
+.od-close:hover{background:#4a160f;color:#fff}
+.od-body{padding:22px 28px 28px}
+.od-table{width:100%;border-collapse:collapse;margin:16px 0 24px}
+.od-table td{padding:9px 0;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.od-table td:last-child{text-align:right;font-weight:600;color:var(--cream)}
+.od-table tr:last-child td{border-bottom:0;font-size:1.05rem;font-weight:700;color:var(--yellow);padding-top:14px}
+.od-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.od-actions button{height:46px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;border:0}
+.btn-od-cancel{background:var(--field);color:var(--cream);border:1px solid var(--edge)!important}
+.btn-od-cancel:hover{background:#4a160f}
+.btn-od-ok{background:var(--red);color:#fff}
+.btn-od-ok:hover{background:var(--btn-hi)}
+
+/* Invoice Official Proof (Langkah 8) */
+.invoice-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(103,217,142,.15);border:1px solid rgba(103,217,142,.4);color:#67d98e;padding:4px 12px;border-radius:999px;font-size:.76rem;font-weight:700;margin-bottom:12px}
+.invoice-box{background:var(--bg);border:1px solid var(--edge);border-radius:16px;padding:18px 20px;margin-bottom:20px}
+.invoice-row{display:flex;justify-content:space-between;gap:8px;font-size:.84rem;margin-bottom:8px}
+.invoice-row:last-child{margin-bottom:0}
+.invoice-row span{color:var(--muted)}
+.invoice-row b{color:var(--text);font-weight:600}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.600-7 8-7s8 3 8 7"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.200 7-11.500A7 7 0 0 0 5 9.500C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+<symbol id="i-bld" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.500"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/></symbol>
+<symbol id="i-ppl" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.300 2.700-5.500 6-5.500s6 2.200 6 5.500"/><circle cx="17" cy="9" r="2.500"/><path d="M17 14.500c2.200 0 4 1.600 4 4.500"/></symbol>
+<symbol id="i-nav" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 9h8M8 12.500h5"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7.500"/></symbol>
+<symbol id="i-okc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.500l2.800 2.800L16 9.500"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="16" rx="2.500"/><path d="M8 3v4M16 3v4M3.500 10h17"/></symbol>
+<symbol id="i-cald" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="16" rx="2.500"/><path d="M8 3v4M16 3v4M3.500 10h17M8 14h.01M12 14h.01M16 14h.01M8 17.500h.01M12 17.500h.01"/></symbol>
+<symbol id="i-clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3l8 4.500v9L12 21l-8-4.500v-9L12 3z"/><path d="M4 7.500l8 4.500 8-4.500M12 12v9"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-hs" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.500" width="18" height="13" rx="2.500"/><path d="M3 10h18M7 15h3"/></symbol>
+<symbol id="i-aim" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="Catering Bunda Rahma – Landing Page.html" aria-label="Catering Bunda Rahma">
+      <img src="logo.webp" alt="Logo Catering Bunda Rahma" width="48" height="48">
+      <span class="brand-text">
+        <span class="brand-title">Catering Bunda Rahma</span>
+      </span>
+    </a>
+    <button class="burger" aria-label="Buka menu" aria-expanded="false" aria-controls="nav"><span></span></button>
+    <nav class="nav" id="nav" aria-label="Navigasi utama">
+      <a href="Catering Bunda Rahma – Landing Page.html">Beranda</a>
+      <a href="Catering Bunda Rahma – Landing Page.html#tentang">Tentang</a>
+      <a href="Catering Bunda Rahma – Pilih Menu.html">Menu</a>
+      <a class="active" aria-current="page" href="Catering Bunda Rahma – Landing Page.html#langganan">Langganan</a>
+      <a href="Catering Bunda Rahma – Riwayat Pesanan.html">Riwayat</a>
+      <a class="btn-nav" href="Catering Bunda Rahma – Login.html">Masuk</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap checkout-wrap">
+<div class="head">
+    <div>
+      <h1>Ke mana makananmu diantar?</h1>
+      <p>Lengkapi alamat dan kontak penerima agar pesanan tiba tepat waktu.</p>
+    </div>
+    <ol class="steps" aria-label="Langkah pemesanan">
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-ok"/></svg></span><div><small>Selesai</small><strong>Pilih paket</strong></div></li>
+      <li class="bar" aria-hidden="true"></li>
+      <li class="now" aria-current="step"><span class="dot"><svg class="i"><use href="#i-pin"/></svg></span><div><small>Langkah 2</small><strong>Alamat</strong></div></li>
+      <li class="bar" aria-hidden="true"></li>
+      <li><span class="dot"><svg class="i"><use href="#i-card"/></svg></span><div><small>Langkah 3</small><strong>Pembayaran</strong></div></li>
+    </ol>
+  </div>
+
+  <div class="grid">
+    <form class="panel form" id="form" novalidate>
+      <!-- Use Case 6 Skenario Alternatif A3: Cek Langganan Aktif -->
+      <div class="active-sub-alert" id="activeSubAlert">
+        <span class="alert-ico" aria-hidden="true">ℹ️</span>
+        <div>
+          <b>Pemberitahuan Langganan:</b>
+          <p>Jika Anda masih memiliki paket aktif yang belum berakhir, paket baru ini akan otomatis dijadwalkan setelah periode paket sebelumnya selesai tanpa jeda hari.</p>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span class="ic"><svg class="i"><use href="#i-user"/></svg></span>
+        <div><h2>Detail penerima</h2><p>Pastikan nomor penerima aktif saat kurir mengantar.</p></div>
+      </div>
+      <div class="row r2" style="margin-bottom:0">
+        <div>
+          <label for="nama">Nama penerima *</label>
+          <div class="ctl" data-f="nama"><svg class="i"><use href="#i-user"/></svg><input id="nama" name="nama" autocomplete="name" placeholder="Contoh: Nadia Putri" required aria-describedby="e-nama"></div>
+          <p class="err" id="e-nama" aria-live="polite"></p>
+        </div>
+        <div>
+          <label for="wa">Nomor WhatsApp *</label>
+          <div class="ctl" data-f="wa"><svg class="i"><use href="#i-phone"/></svg><input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890" required aria-describedby="e-wa"></div>
+          <p class="err" id="e-wa" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="sec">
+        <span class="ic"><svg class="i"><use href="#i-pin"/></svg></span>
+        <div><h2>Alamat pengiriman</h2><p>Tulis alamat selengkap mungkin agar mudah ditemukan.</p></div>
+        <button class="loc" type="button" id="loc"><svg class="i"><use href="#i-aim"/></svg>Gunakan lokasiku</button>
+      </div>
+
+      <fieldset class="chips"><legend class="sr">Label alamat</legend>
+        <label class="chip"><input type="radio" name="label" value="Rumah" checked><span><svg class="i"><use href="#i-home"/></svg>Rumah</span></label>
+        <label class="chip"><input type="radio" name="label" value="Kantor"><span><svg class="i"><use href="#i-bld"/></svg>Kantor</span></label>
+        <label class="chip"><input type="radio" name="label" value="Lainnya"><span><svg class="i"><use href="#i-ppl"/></svg>Lainnya</span></label>
+      </fieldset>
+
+      <div class="row" style="margin-bottom:0">
+        <div>
+          <label for="alamat">Alamat lengkap *</label>
+          <div class="ctl" data-f="alamat"><svg class="i"><use href="#i-nav"/></svg><input id="alamat" name="alamat" autocomplete="street-address" placeholder="Nama jalan, gedung, nomor" required aria-describedby="e-alamat"></div>
+          <p class="err" id="e-alamat" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="row r3" style="margin-bottom:0">
+        <div>
+          <label for="kota">Kota / Kabupaten *</label>
+          <div class="ctl" data-f="kota"><input id="kota" name="kota" autocomplete="address-level2" placeholder="Contoh: Batam" required aria-describedby="e-kota"></div>
+          <p class="err" id="e-kota" aria-live="polite"></p>
+        </div>
+        <div>
+          <label for="pos">Kode pos *</label>
+          <div class="ctl" data-f="pos"><input id="pos" name="pos" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="12345" required aria-describedby="e-pos"></div>
+          <p class="err" id="e-pos" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:0">
+        <div>
+          <label for="patokan">Patokan &amp; detail lokasi</label>
+          <div class="ctl area"><svg class="i"><use href="#i-msg"/></svg><textarea id="patokan" name="patokan" placeholder="Contoh: Disamping gedung Techno" aria-describedby="h-patokan"></textarea></div>
+          <p class="hint" id="h-patokan" style="margin:8px 0 18px">Contoh: warna pagar, nomor lantai, atau titik temu dengan kurir.</p>
+        </div>
+      </div>
+
+      <label class="save">
+        <input type="checkbox" name="simpan" id="simpan" checked>
+        <span><b>Simpan alamat ini untuk pesanan berikutnya</b><small id="save-note">Alamat akan tersimpan sebagai “Rumah”.</small></span>
+        <span class="state" id="state">Siap disimpan</span>
+      </label>
+    </form>
+
+    <aside class="side" aria-label="Ringkasan dan bantuan">
+      <section class="panel sum" aria-labelledby="rs">
+        <div class="sum-h"><h2 id="rs">Ringkasan pesanan</h2><span class="pill"><svg class="i"><use href="#i-okc"/></svg>Paket dipilih</span></div>
+        <div class="pk">
+          <img src="data:image/webp;base64,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" alt="Contoh menu catering dalam kotak makan" width="84" height="84">
+          <div>
+            <div class="pk-top"><h3 id="p-name">30 Day</h3><a class="lnk" href="Catering Bunda Rahma – Landing Page.html#langganan">Ubah</a></div>
+            <p id="p-desc">30× makanan disiapkan sesuai jadwal pilihanmu.</p>
+            <span class="save-tag" id="p-save">Hemat Rp 35.000</span>
+          </div>
+        </div>
+        <hr>
+                <!-- Use Case 6 Langkah 4: Menu & Layanan yang Termasuk -->
+        <div class="pk-benefits">
+          <div class="pk-benefits-title"><span aria-hidden="true">🍱</span> Fasilitas Paket Termasuk:</div>
+          <div class="pk-benefits-list">
+            <span>✓ Menu lezat berganti variasi setiap hari</span>
+            <span>✓ Bebas ubah pilihan menu sebelum jam 20.00</span>
+            <span>✓ Pengantaran tepat waktu jam 11.00–13.00</span>
+            <span>✓ Kemasan higienis, ramah lingkungan &amp; 100% Halal</span>
+          </div>
+        </div>
+        <div class="jh"><h3>Jadwal pengiriman</h3><a class="lnk" href="#">Ubah jadwal</a></div>
+        <div class="jd">
+          <div><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><span><small>Mulai</small><b id="j-start">Senin, 5 Okt 2026</b></span></div>
+          <div><span class="ic"><svg class="i"><use href="#i-clk"/></svg></span><span><small>Waktu</small><b>11.00–13.00 WIB</b></span></div>
+          <div><span class="ic"><svg class="i"><use href="#i-cald"/></svg></span><span><small>Frekuensi</small><b id="j-freq">Senin–Jumat</b></span></div>
+          <div><span class="ic"><svg class="i"><use href="#i-box"/></svg></span><span><small>Total</small><b id="j-total">30 kali antar</b></span></div>
+        </div>
+        <hr>
+        <div class="pr">
+          <div><span id="r-name">Paket 30 Day</span><b id="r-base">Rp 360.000</b></div>
+          <div><span>Biaya pengiriman</span><b class="g">Gratis</b></div>
+          <div id="r-disc-row"><span>Diskon paket</span><b class="g" id="r-disc">-Rp 35.000</b></div>
+        </div>
+        <div class="tot"><span>Total pembayaran</span><strong id="r-total">Rp 325.000</strong></div>
+        <p class="tax">Harga sudah termasuk pajak</p>
+        <button class="go" type="submit" form="form" id="go">Lanjut ke pembayaran</button>
+        <p class="status" id="status" role="status"></p>
+        <p class="safe"><svg class="i"><use href="#i-lock"/></svg>Kamu masih bisa meninjau pesanan sebelum membayar.</p>
+      </section>
+
+      <section class="panel help">
+        <span class="ic"><svg class="i"><use href="#i-hs"/></svg></span>
+        <div><b>Butuh bantuan?</b><small>Tim Brahma siap membantu setiap hari, 08.00–20.00.</small></div>
+        <a class="lnk" href="#">Chat kami</a>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var rp=function(n){return 'Rp '+n.toLocaleString('id-ID')};
+
+  /* paket: baca dari ?paket=1|7|30, default 30 */
+  var PLAN={
+    '1':{name:'1 Day',n:1,base:12000,disc:0,desc:'1× makanan disiapkan sesuai jadwal pilihanmu.',freq:'Sekali antar'},
+    '7':{name:'7 Day',n:7,base:84000,disc:5000,desc:'7× makanan disiapkan sesuai jadwal pilihanmu.',freq:'Senin–Jumat'},
+    '30':{name:'30 Day',n:30,base:360000,disc:35000,desc:'30× makanan disiapkan sesuai jadwal pilihanmu.',freq:'Senin–Jumat'}
+  };
+  var key=(new URLSearchParams(location.search).get('paket')||'30').replace(/\D/g,'');
+  var p=PLAN[key]||PLAN['30'];
+  $('p-name').textContent=p.name;$('p-desc').textContent=p.desc;
+  $('r-name').textContent='Paket '+p.name;$('r-base').textContent=rp(p.base);
+  $('r-total').textContent=rp(p.base-p.disc);
+  $('j-freq').textContent=p.freq;$('j-total').textContent=p.n+' kali antar';
+  if(p.disc){$('p-save').textContent='Hemat '+rp(p.disc);$('r-disc').textContent='-'+rp(p.disc)}
+  else{$('p-save').style.display='none';$('r-disc-row').style.display='none'}
+
+  /* tanggal mulai: Senin terdekat berikutnya */
+  var d=new Date();d.setDate(d.getDate()+((8-d.getDay())%7||7));
+  $('j-start').textContent=d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'short',year:'numeric'});
+
+  /* simpan alamat */
+  var chk=$('simpan'),note=$('save-note'),st=$('state');
+  function lbl(){return document.querySelector('input[name=label]:checked').value}
+  function sync(){
+    note.textContent=chk.checked?'Alamat akan tersimpan sebagai “'+lbl()+'”.':'Alamat hanya dipakai untuk pesanan ini.';
+    st.textContent=chk.checked?'Siap disimpan':'Tidak disimpan';st.classList.toggle('off',!chk.checked);
+  }
+  chk.addEventListener('change',sync);
+  document.querySelectorAll('input[name=label]').forEach(function(r){r.addEventListener('change',sync)});
+
+  /* gunakan lokasiku */
+  var status=$('status'),loc=$('loc');
+  loc.addEventListener('click',function(){
+    if(!navigator.geolocation){status.textContent='Browser tidak mendukung lokasi. Isi alamat secara manual.';return}
+    status.textContent='Mencari lokasimu…';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var t='Koordinat: '+pos.coords.latitude.toFixed(5)+', '+pos.coords.longitude.toFixed(5);
+      var pt=$('patokan');pt.value=pt.value?pt.value+'\n'+t:t;
+      status.textContent='Lokasi ditemukan. Lengkapi alamat jalan dan kota.';
+    },function(){status.textContent='Lokasi tidak bisa diakses. Isi alamat secara manual.'},{timeout:8000});
+  });
+
+  /* validasi */
+  $('pos').addEventListener('input',function(){this.value=this.value.replace(/\D/g,'')});
+  var rules={
+    nama:function(v){return v.trim().length<2?'Isi nama penerima.':''},
+    wa:function(v){return /^(\+?62|0)8\d{7,11}$/.test(v.replace(/[\s\-]/g,''))?'':'Masukkan nomor WhatsApp yang valid, contoh: 0812 3456 7890.'},
+    alamat:function(v){return v.trim().length<5?'Isi alamat lengkap.':''},
+    kota:function(v){return v.trim().length<2?'Isi kota atau kabupaten.':''},
+    pos:function(v){return /^\d{5}$/.test(v)?'':'Kode pos terdiri dari 5 angka.'}
+  };
+  function check(id){
+    var el=$(id),msg=rules[id](el.value);
+    $('e-'+id).textContent=msg;el.setAttribute('aria-invalid',msg?'true':'false');
+    el.closest('.ctl').classList.toggle('bad',!!msg);return !msg;
+  }
+  Object.keys(rules).forEach(function(id){
+    var el=$(id);
+    el.addEventListener('blur',function(){if(el.value)check(id)});
+    el.addEventListener('input',function(){if(el.getAttribute('aria-invalid')==='true')check(id)});
+  });
+
+  var form=$('form'), go=$('go');
+  var dConfirm = $('dConfirm'), dInvoice = $('dInvoice');
+  var pendingOrderData = null;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault(); status.textContent = '';
+    var ok = Object.keys(rules).map(check).every(Boolean);
+    if (!ok) {
+      form.querySelector('[aria-invalid="true"]').focus();
+      status.textContent = 'Periksa kembali kolom yang ditandai.';
+      return;
+    }
+
+    pendingOrderData = {
+      paket: p.name,
+      total: p.base - p.disc,
+      nama: form.nama.value.trim(),
+      wa: form.wa.value.replace(/[\s\-]/g, ''),
+      label: lbl(),
+      alamat: form.alamat.value.trim(),
+      kota: form.kota.value.trim(),
+      pos: form.pos.value,
+      patokan: form.patokan.value.trim(),
+      simpan: chk.checked,
+      startDate: $('j-start').textContent,
+      hari: p.n + ' kali antar (' + p.freq + ')'
+    };
+
+    // Use Case 6 Langkah 5: Tampilkan Modal Konfirmasi
+    $('c-paket').textContent = 'Paket ' + p.name;
+    $('c-hari').textContent = p.n + ' kali antar';
+    $('c-jadwal').textContent = $('j-start').textContent + ' (11.00–13.00 WIB)';
+    $('c-nama').textContent = pendingOrderData.nama;
+    $('c-alamat').textContent = pendingOrderData.alamat + ', ' + pendingOrderData.kota;
+    $('c-total').textContent = rp(pendingOrderData.total);
+
+    dConfirm.showModal();
+  });
+
+  // Use Case 6 Skenario Alternatif A2: Batal Pembelian
+  $('btnCancelOrder').addEventListener('click', function(){
+    dConfirm.close();
+    pendingOrderData = null;
+    status.style.color = 'var(--muted)';
+    status.textContent = 'Pemesanan dibatalkan. Anda dapat mengubah data atau pilihan paket.';
+  });
+  $('dConfirmClose').addEventListener('click', function(){
+    dConfirm.close();
+    pendingOrderData = null;
+  });
+
+  // Use Case 6 Langkah 6, 7 & 8: Konfirmasi & Bayar -> Simpan & Tampilkan Bukti Pembelian
+  $('btnConfirmPay').addEventListener('click', function(){
+    if (!pendingOrderData) return;
+    dConfirm.close();
+
+    var invNum = '#INV-CBR-' + Math.floor(100000 + Math.random() * 900000);
+    var fullOrder = {
+      id: invNum,
+      paket: pendingOrderData.paket,
+      total: pendingOrderData.total,
+      nama: pendingOrderData.nama,
+      wa: pendingOrderData.wa,
+      alamat: pendingOrderData.alamat + ', ' + pendingOrderData.kota,
+      tanggal: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}),
+      startDate: pendingOrderData.startDate,
+      status: 'Aktif'
+    };
+
+    try {
+      localStorage.setItem('brahma_active_order', JSON.stringify(fullOrder));
+    } catch(err){}
+
+    // Isi data Bukti Pembelian / Invoice (Langkah 8)
+    $('inv-pkg').textContent = 'Paket ' + fullOrder.paket;
+    $('inv-no').textContent = 'No. Pembelian: ' + invNum;
+    $('inv-name').textContent = fullOrder.nama;
+    $('inv-wa').textContent = fullOrder.wa;
+    $('inv-date').textContent = fullOrder.startDate;
+    $('inv-addr').textContent = fullOrder.alamat;
+    $('inv-total').textContent = rp(fullOrder.total);
+
+    dInvoice.showModal();
+    status.style.color = '#fae491';
+    status.textContent = '✓ Pembelian paket berhasil dikonfirmasi! Langganan telah aktif.';
+  });
+
+  $('dInvoiceClose').addEventListener('click', function(){
+    dInvoice.close();
+  });
+})();
+</script>
+
+<!-- Dialog Konfirmasi Pembelian (Use Case 6 Langkah 5 & Alternatif A2) -->
+<dialog class="order-dialog" id="dConfirm">
+  <div class="od-head">
+    <h2>Konfirmasi Pemesanan</h2>
+    <button class="od-close" type="button" id="dConfirmClose" aria-label="Tutup">&times;</button>
+  </div>
+  <div class="od-body">
+    <p style="font-size:.86rem;color:var(--muted);margin:0 0 16px;line-height:1.6">Periksa kembali detail paket katering harian Anda sebelum melanjutkan pembayaran:</p>
+    <table class="od-table">
+      <tr><td>Paket Langganan</td><td id="c-paket">-</td></tr>
+      <tr><td>Jumlah Pengantaran</td><td id="c-hari">-</td></tr>
+      <tr><td>Jadwal Pengiriman</td><td id="c-jadwal">-</td></tr>
+      <tr><td>Nama Penerima</td><td id="c-nama">-</td></tr>
+      <tr><td>Alamat Pengantaran</td><td id="c-alamat">-</td></tr>
+      <tr><td>Total Pembayaran</td><td id="c-total">-</td></tr>
+    </table>
+    <div class="od-actions">
+      <!-- Use Case 6 Skenario Alternatif A2: Batal -->
+      <button class="btn-od-cancel" type="button" id="btnCancelOrder">Batal</button>
+      <button class="btn-od-ok" type="button" id="btnConfirmPay">Konfirmasi &amp; Bayar</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Dialog Bukti Pembelian / Invoice (Use Case 6 Langkah 8) -->
+<dialog class="order-dialog" id="dInvoice">
+  <div class="od-head">
+    <h2>Bukti Pembelian Paket</h2>
+    <button class="od-close" type="button" id="dInvoiceClose" aria-label="Tutup">&times;</button>
+  </div>
+  <div class="od-body" style="text-align:center">
+    <div class="invoice-badge">✓ Status: Pembayaran Lunas &amp; Langganan Aktif</div>
+    <h3 style="margin:0 0 4px;font-size:1.3rem;color:var(--white)" id="inv-pkg">Paket 30 Day</h3>
+    <p style="font-size:.82rem;color:var(--muted);margin:0 0 20px" id="inv-no">No. Invoice: #INV-CBR-202610-001</p>
+    
+    <div class="invoice-box" style="text-align:left">
+      <div class="invoice-row"><span>Nama Penerima:</span><b id="inv-name">-</b></div>
+      <div class="invoice-row"><span>Nomor WhatsApp:</span><b id="inv-wa">-</b></div>
+      <div class="invoice-row"><span>Mulai Pengantaran:</span><b id="inv-date">-</b></div>
+      <div class="invoice-row"><span>Waktu Pengantaran:</span><b>11.00–13.00 WIB</b></div>
+      <div class="invoice-row"><span>Alamat:</span><b id="inv-addr" style="max-width:240px;text-align:right">-</b></div>
+      <div class="invoice-row" style="margin-top:10px;padding-top:8px;border-top:1px solid var(--edge)"><span>Total Bayar:</span><b id="inv-total" style="color:var(--yellow);font-size:1.05rem">-</b></div>
+    </div>
+
+    <p style="font-size:.82rem;color:var(--muted);margin:0 0 20px;line-height:1.6">
+      Data langganan berhasil disimpan dan diaktifkan. Anda dapat melihat riwayat pengantaran atau memberikan rating kapan saja.
+    </p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button type="button" class="btn ghost" id="btnPrintInv" style="flex:1;min-width:140px;padding:12px;font-size:.86rem" onclick="window.print()"><span aria-hidden="true">🖨️</span> Cetak Bukti</button>
+      <a href="Catering Bunda Rahma – Riwayat Pesanan.html" class="btn" style="flex:1;min-width:160px;padding:12px;font-size:.86rem;text-align:center;text-decoration:none">Lihat Riwayat &rarr;</a>
+    </div>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-min">
+      <a class="footer-brand-min" href="Catering Bunda Rahma – Landing Page.html" aria-label="Catering Bunda Rahma">
+        <img src="logo.webp" alt="" width="26" height="26" loading="lazy">
+        <span>Catering Bunda Rahma</span>
+      </a>
+      <div class="footer-right">
+        <p class="footer-copy">&copy; 2026 Catering Bunda Rahma. Semua Hak Dilindungi.</p>
+        <span class="footer-sep">•</span>
+        <span class="footer-tag">Enak &bull; Lezat &bull; Tepat Waktu</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

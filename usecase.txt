@@ -1,0 +1,285 @@
+Use Case 1
+Identifikasi
+Nomor
+usecase-01
+Nama
+Registrasi
+Deskripsi
+proses pembuatan akun baru agar pengguna dapat mengakses sistem.
+Aktor
+User
+Kondisi awal
+Pengguna berada di halaman registrasi dan diminta untuk mengisi identitas untuk mendaftarkan akun
+Kondisi akhir
+Akun pelanggan berhasil dibuat dan data tersimpan di sistem. 
+Skenario Utama
+Pelanggan membuka halaman registrasi.
+Sistem menampilkan formulir registrasi.
+Pelanggan mengisi data (nama, email, dan password).
+Pelanggan menekan tombol "Daftar".
+Sistem memvalidasi data yang dimasukkan.
+Sistem menyimpan data akun pelanggan.
+Sistem menampilkan pesan registrasi berhasil dan mengarahkan pelanggan ke halaman login. 
+Skenario Alternatif
+A1: Data belum lengkap atau format tidak sesuai
+Pada langkah ke 5, jika ada data yang kosong atau formatnya tidak sesuai :
+Sistem menampilkan pesan kesalahan pada kolom yang bermasalah
+Sistem kembali ke langkah 2
+A2: Email sudah terdaftar
+Pada langkah ke 5, jika email sudah terdaftar :
+Sistem menampilkan pesan "Email sudah terdaftar"
+Sistem menyediakan pilihan untuk menuju halaman login
+
+Use Case 2
+Identifikasi
+Nomor
+usecase-02
+Nama
+Login
+Deskripsi
+Proses yang memungkinkan Owner dan User masuk ke dalam sistem menggunakan akun yang telah terdaftar. 
+Aktor
+Owner dan User
+Kondisi awal
+Owner/User telah memiliki akun yang terdaftar dan berada pada halaman login. 
+Kondisi akhir
+Owner/User berhasil masuk ke dalam sistem dan diarahkan ke halaman utama sesuai hak aksesnya. 
+Skenario Utama
+Owner/User membuka halaman Login.
+Sistem menampilkan form login.
+Owner/User memasukkan email dan password.
+Owner/User menekan tombol Login.
+Sistem memeriksa data login.
+Sistem memvalidasi data tersebut.
+Sistem berhasil memverifikasi akun.
+Sistem mengarahkan Owner/User ke halaman utama.
+Skenario Alternatif
+A1: Kolom login kosong
+Pada langkah ke 4, jika email atau password belum diisi :
+Sistem meminta pengguna melengkapi data
+A2: Email atau password salah
+Pada langkah ke 5, jika data login tidak sesuai dengan data di sistem :
+Sistem menampilkan pesan "Email atau password salah"
+
+
+Use Case 3
+Identifikasi
+Nomor
+use-case03
+Nama
+Kelola Menu
+Deskripsi
+Owner mengelola data menu catering, meliputi menambah,mengubah dan menghapus menu
+Aktor
+Owner
+Kondisi awal
+owner sudah login dan berada di halaman kelola menu
+Kondisi akhir
+data menu berhasil ditambah,diubah atau dihapus dan tersimpan di sistem
+Skenario Utama
+Owner membuka halaman kelola menu.
+Sistem menampilkan daftar menu yang tersedia.
+Owner memilih aksi (tambah, ubah, atau hapus menu).
+Sistem menampilkan formulir atau konfirmasi sesuai aksi.
+Owner dapat menambahkan menu baru dengan mengisi data (nama, deskripsi, foto, lalu menyimpan, atau mengonfirmasi penghapusan).
+Owner dapat mengubah menu (nama, deskripsi, atau foto, lalu menyimpan perubahan).
+Owner dapat menghapus menu.
+Sistem memvalidasi aksi yang dilakukan owner kepada data menu.
+Sistem menampilkan pesan berhasil. 
+Skenario Alternatif
+A1: Data menu tidak lengkap atau tidak valid
+Pada langkah ke 5, jika data menu tidak lengkap atau tidak valid :
+Sistem menampilkan pesan kesalahan
+A2: Menu sedang digunakan
+Pada langkah ke 7, jika Owner menghapus menu yang sedang digunakan pada pesanan atau langganan aktif :
+Sistem menampilkan pesan "Menu sedang digunakan dan tidak dapat dihapus"
+Sistem menyediakan pilihan untuk menonaktifkan menu
+
+
+Use Case 4
+Identifikasi
+Nomor
+use-case04
+Nama
+Kelola Langganan
+Deskripsi
+Memungkinkan Owner untuk memantau status paket aktif, melihat sisa kuota hari pengantaran, memperpanjang durasi langganan, mengganti paket/sesi makan, atau menghentikan langganan.
+Aktor
+Owner
+Kondisi awal
+Owner sudah login ke sistem dan memiliki hak akses untuk mengelola data paket langganan. 
+Kondisi akhir
+Data dan status langganan pelanggan berhasil diperbarui di sistem.
+Jadwal pengantaran menyesuaikan dengan paket langganan yang baru.
+Skenario Utama
+Owner membuka menu "Kelola Langganan".
+Sistem menampilkan daftar langganan pelanggan beserta status paket aktif dan sisa kuota hari pengantaran.
+Owner memilih pelanggan dan aksi yang diinginkan (memperpanjang durasi, mengganti paket/sesi makan, atau menghentikan langganan).
+Sistem menampilkan formulir konfirmasi dan rincian perubahan.
+Owner mengonfirmasi perubahan.
+Sistem memperbarui data serta status langganan pelanggan.
+Skenario Alternatif
+A1: Data langganan tidak lengkap atau tidak valid
+Pada langkah ke 5, jika data perubahan tidak lengkap atau tidak valid :
+Sistem menampilkan pesan kesalahan
+A2: Admin membatalkan perubahan
+ Pada langkah ke-6, jika admin menekan tombol "Batal":
+Sistem membuang perubahan yang belum disimpan
+Sistem kembali ke daftar paket langganan (langkah 2)
+A3: Paket sedang digunakan oleh langganan aktif
+ Pada langkah ke-6, jika paket yang diubah memiliki pelanggan dengan langganan aktif:
+Sistem menampilkan peringatan bahwa ada pelanggan aktif yang menggunakan paket ini
+Sistem meminta admin memilih: menerapkan perubahan hanya untuk langganan baru, atau juga untuk pelanggan aktif
+
+
+Use Case 5
+Identifikasi
+Nomor
+use-case05
+Nama
+Kelola User
+Deskripsi
+Owner untuk melihat daftar seluruh user (pelanggan dan admin), menambah akun admin baru, mengubah data/role user, menonaktifkan (suspend), atau menghapus akun user dari sistem.
+Aktor
+Owner
+Kondisi awal
+Owner sudah login ke sistem dan memiliki hak akses untuk mengelola data user.
+Kondisi akhir
+Data user diperbarui, ditambahkan, atau dinonaktifkan di sistem
+Skenario Utama
+Owner membuka menu "Kelola User"
+Sistem menampilkan daftar seluruh user beserta informasi dasarnya (nama, email, role, status akun)
+Owner memilih aksi yang ingin dilakukan: tambah user, edit, atau nonaktifkan/hapus user
+Sistem menampilkan form sesuai aksi yang dipilih (form tambah user baru, atau form edit data user)
+Owner mengisi/mengubah data user (nama, email, role, status)
+Owner menekan tombol "Simpan"
+Sistem memvalidasi data yang dimasukkan
+Sistem menyimpan perubahan ke database
+Sistem mencatat perubahan ke dalam log audit
+Sistem mengirimkan notifikasi ke user terkait (jika akun diedit/dinonaktifkan)
+Sistem menampilkan pesan konfirmasi bahwa perubahan berhasil disimpan
+Skenario Alternatif
+A1: Data user tidak lengkap atau tidak valid
+ Pada langkah ke-7, jika data yang dimasukkan tidak lengkap atau tidak valid (misalnya format email salah, field wajib kosong):
+Sistem menampilkan pesan kesalahan
+Use case berlanjut ke langkah 5
+A2: Email/nomor HP sudah terdaftar
+ Pada langkah ke-7, jika owner menambahkan user baru dengan email/nomor HP yang sudah terdaftar:
+Sistem menampilkan pesan bahwa akun sudah terdaftar
+Use case berlanjut ke langkah 5
+A3: Owner membatalkan perubahan
+ Pada langkah ke-6, jika owner menekan tombol "Batal":
+Sistem membuang perubahan yang belum disimpan
+Sistem kembali ke daftar user (langkah 2)
+A4: Owner menonaktifkan/menghapus user yang masih memiliki transaksi aktif
+ Pada langkah ke-7, jika user yang akan dinonaktifkan/dihapus masih memiliki langganan/pesanan aktif:
+Sistem menampilkan peringatan bahwa user memiliki transaksi aktif
+Sistem meminta konfirmasi ulang dari owner sebelum melanjutkan
+Jika owner mengonfirmasi, use case berlanjut ke langkah 8; jika tidak, use case berlanjut ke langkah 2
+
+
+Use Case 6
+Identifikasi
+Nomor
+use-case06
+Nama
+Pembelian Paket Langganan 
+Deskripsi
+Pelanggan melakukan pemesanan makanan/paket katering harian, menentukan jadwal pengiriman, dan melakukan pembayaran.
+Aktor
+User
+Kondisi awal
+Pelanggan telah login dan memilih menu atau paket katering.
+Kondisi akhir
+Pesanan berhasil dibuat, diproses, dan tersimpan di dalam sistem.
+Skenario Utama
+Pelanggan membuka halaman paket langganan
+Pelanggan memilih paket langganan yang diinginkan (include Memilih Paket Langganan)
+Pelanggan mengisi tanggal mulai langganan dan alamat pengiriman
+Sistem menampilkan ringkasan paket (durasi, jumlah hari pengantaran, menu yang termasuk) dan total harga
+Pelanggan mengkonfirmasi pembelian
+Sistem menyimpan data langganan
+Sistem mengaktifkan status langganan pelanggan
+Sistem menampilkan bukti pembelian paket langganan kepada pelanggan
+Skenario Alternatif
+A1: Data langganan belum lengkap
+ Pada langkah ke-3, jika tanggal mulai atau alamat pengiriman belum diisi:
+Sistem meminta pelanggan melengkapi data
+Use case berlanjut ke langkah 3
+A2: Pelanggan membatalkan pembelian
+ Pada langkah ke-5, jika pelanggan memilih membatalkan:
+Sistem tidak menyimpan data langganan
+Sistem menampilkan kembali halaman paket langganan
+Use case berlanjut ke langkah 2
+A3: Paket langganan sudah aktif sebelumnya
+ Pada langkah ke-6, jika pelanggan sudah memiliki langganan aktif yang belum berakhir:
+Sistem menampilkan peringatan bahwa pelanggan masih memiliki langganan aktif
+Sistem menawarkan opsi: tambahkan sebagai langganan baru setelah paket lama berakhir
+Use case berlanjut sesuai pilihan pelanggan
+
+
+Use Case 7
+Identifikasi
+Nomor
+use-case07
+Nama
+Memilih Menu
+Deskripsi
+Pelanggan melihat dan memilih daftar menu makanan yang tersedia sesuai dengan preferensi harian.
+Aktor
+User
+Kondisi awal
+Pelanggan telah login dan membuka halaman daftar menu.
+Kondisi akhir
+Pelanggan berhasil memilih menu makanan yang diinginkan.
+Skenario Utama
+1. Pelanggan membuka halaman daftar menu.
+2. Sistem menampilkan daftar menu makanan beserta foto, deskripsi, dan harga.
+3. Pelanggan melihat detail menu dan informasi bahan.
+4. Pelanggan memilih menu makanan yang diinginkan.
+5. Sistem menyimpan pilihan menu pelanggan dan menampilkan ringkasan pilihan.
+Skenario Alternatif
+A1: Tidak ada menu yang tersedia
+Pada langkah ke 2, jika belum ada menu yang tersedia :
+Sistem menampilkan pesan "Menu belum tersedia"
+Use case berakhir
+A2: Menu yang dipilih sudah tidak tersedia
+Pada langkah ke 4, jika menu yang dipilih sudah tidak tersedia :
+Sistem menampilkan pesan "Menu tidak tersedia"
+Sistem meminta pelanggan memilih menu lain
+Use case berlanjut ke langkah 2
+
+
+Use Case 8
+Identifikasi
+Nomor
+use-case08
+Nama
+Memberikan Rating dan Ulasan
+Deskripsi
+Pelanggan memberikan penilaian dan ulasan terhadap menu atau layanan setelah pesanan diterima 
+Aktor
+Pelanggan
+Kondisi awal
+Pelanggan sudah login dan memiliki pesanan yang telah selesai. 
+Kondisi akhir
+Rating dan ulasan berhasil disimpan dan ditampilkan pada menu terkait. 
+Skenario Utama
+Pelanggan membuka riwayat pesanan.
+Pelanggan memilih pesanan yang telah selesai.
+Sistem menampilkan formulir rating dan ulasan.
+Pelanggan memberi rating (bintang) dan menulis ulasan.
+Pelanggan menekan tombol "Kirim".
+Sistem memvalidasi dan menyimpan rating serta ulasan.
+Sistem menampilkan pesan berhasil. 
+Skenario Alternatif
+A1: Rating belum diisi
+Pada langkah ke 5, jika pelanggan menekan tombol "Kirim" sebelum memberi rating :
+Sistem menampilkan pesan "Rating wajib diisi"
+Use case berlanjut ke langkah 4
+A2: Pesanan sudah pernah diulas
+Pada langkah ke 2, jika pesanan yang dipilih sudah pernah diberi ulasan :
+Sistem menampilkan rating dan ulasan sebelumnya
+Sistem menyediakan fasilitas untuk mengubah ulasan
+Use case berlanjut ke langkah 4
+

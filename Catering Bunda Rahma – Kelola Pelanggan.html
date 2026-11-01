@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kelola Pelanggan – Catering Bunda Rahma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <script src="navbar.js" defer></script>
+<style>
+    /* =====================================================
+       Kelola Pelanggan — komponen lokal
+       Layout & token pakai global.css
+       ===================================================== */
+    .i {
+      width: 1.2em;
+      height: 1.2em;
+      flex: none;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
+    .sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap
+    }
+
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--red);
+      color: var(--cream);
+      font: 600 .95rem/1 var(--font);
+      padding: 16px 26px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      white-space: nowrap
+    }
+
+    .btn:hover {
+      background: var(--red-hi)
+    }
+
+    .btn:active {
+      transform: scale(.98)
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--cream)
+    }
+
+    .btn.ghost:hover {
+      background: rgba(255, 255, 255, .05)
+    }
+
+    .btn.danger {
+      background: var(--sel)
+    }
+
+    .btn.danger:hover {
+      background: #dc1a14
+    }
+
+    .btn.sm {
+      padding: 8px 16px;
+      font-size: .78rem;
+      border-radius: 8px;
+      font-weight: 500
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(14px, 2vw, 24px);
+      margin-bottom: 28px;
+      width: 100%
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--ico);
+      border-radius: 16px;
+      padding: 22px
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(1.7rem, 2.6vw, 2.1rem);
+      font-weight: 700;
+      margin: 6px 0 10px;
+      line-height: 1.2
+    }
+
+    .stat small {
+      font-size: .75rem;
+      color: var(--yellow)
+    }
+
+    .stat small.dn {
+      color: var(--muted)
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .25)
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 20px 22px
+    }
+
+    .srch {
+      position: relative;
+      flex: 1 1 220px;
+      max-width: 260px
+    }
+
+    .srch .i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none
+    }
+
+    .field {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: .88rem;
+      padding: 11px 14px;
+      transition: border-color .2s, box-shadow .2s
+    }
+
+    .field::placeholder {
+      color: #9a7b75
+    }
+
+    .field:hover {
+      border-color: #7d2c22
+    }
+
+    .field:focus {
+      outline: none;
+      border-color: var(--sel);
+      box-shadow: 0 0 0 3px rgba(195, 17, 12, .3)
+    }
+
+    .srch .field {
+      padding-left: 42px
+    }
+
+    .sel {
+      position: relative
+    }
+
+    .sel select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 38px;
+      cursor: pointer
+    }
+
+    .sel .i {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      width: 16px;
+      height: 16px
+    }
+
+    .sel option {
+      background: #280905;
+      color: #fff
+    }
+
+    .cnt {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    th {
+      background: var(--bg);
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 15px 22px;
+      border-block: 1px solid var(--line)
+    }
+
+    td {
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+      font-size: .88rem
+    }
+
+    tbody tr {
+      transition: background .2s
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, .025)
+    }
+
+    .r {
+      text-align: right
+    }
+
+    .who {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0
+    }
+
+    .av {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex: none;
+      object-fit: cover;
+      display: grid;
+      place-items: center;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--cream);
+      background: var(--ico)
+    }
+
+    .who b {
+      display: block;
+      font-weight: 600;
+      font-size: .92rem;
+      line-height: 1.3
+    }
+
+    .who small {
+      display: block;
+      color: var(--muted);
+      font-size: .75rem;
+      overflow-wrap: anywhere
+    }
+
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 12px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--bg);
+      line-height: 1.6;
+      white-space: nowrap
+    }
+
+    .b-on {
+      background: var(--yellow)
+    }
+
+    .b-try {
+      background: var(--cream)
+    }
+
+    .b-off {
+      background: #dcbdb5
+    }
+
+    .b-stop {
+      background: #8a3a30;
+      color: var(--cream)
+    }
+
+    /* Role badges */
+    .badge-yellow {
+      background: var(--yellow)
+    }
+
+    .badge-cream {
+      background: var(--cream)
+    }
+
+    .act {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 44px 22px
+    }
+
+    .pg {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 20px 22px
+    }
+
+    .pg p {
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .pager {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .pager button {
+      min-width: 40px;
+      height: 40px;
+      padding: 0 16px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .2s
+    }
+
+    .pager button:hover:not(:disabled) {
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .pager button[aria-current="page"] {
+      background: var(--red);
+      border-color: var(--red);
+      cursor: default
+    }
+
+    .pager button:disabled {
+      opacity: .4;
+      cursor: not-allowed
+    }
+
+    /* dialogs */
+    dialog {
+      width: min(520px, calc(100% - 32px));
+      max-height: calc(100dvh - 32px);
+      margin: auto;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      color: var(--text);
+      overflow: auto;
+      position: fixed
+    }
+
+    dialog::backdrop {
+      background: rgba(24, 5, 3, .65);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px)
+    }
+
+    dialog[open] {
+      animation: pop .2s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(.98)
+      }
+    }
+
+    .dh {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 24px 6px
+    }
+
+    .dh h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 700
+    }
+
+    .x {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      cursor: pointer
+    }
+
+    .x:hover {
+      background: #4a160f
+    }
+
+    .x .i {
+      width: 16px;
+      height: 16px
+    }
+
+    .dform {
+      padding: 6px 24px 24px
+    }
+
+    .dsub {
+      color: var(--muted);
+      font-size: .82rem;
+      margin-bottom: 18px
+    }
+
+    fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      min-width: 0
+    }
+
+    .fg {
+      margin-bottom: 16px
+    }
+
+    label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px
+    }
+
+    .err {
+      min-height: 1.1em;
+      margin-top: 4px;
+      font-size: .74rem;
+      color: var(--err)
+    }
+
+    .field[aria-invalid="true"] {
+      border-color: var(--err)
+    }
+
+    .field:disabled {
+      opacity: .85;
+      cursor: default;
+      border-style: dashed
+    }
+
+    .sel select:disabled+.i {
+      opacity: .4
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .df {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px
+    }
+
+    .df .sp {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .del {
+      background: none;
+      border: 0;
+      color: var(--err);
+      font: 500 .85rem Poppins, sans-serif;
+      cursor: pointer;
+      padding: 10px 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 8px
+    }
+
+    .del:hover {
+      text-decoration: underline
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    .confirm {
+      padding: 30px 28px 26px;
+      text-align: center
+    }
+
+    .confirm .ic {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(195, 17, 12, .2);
+      color: #ff8a7c;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px
+    }
+
+    .confirm .ic .i {
+      width: 26px;
+      height: 26px
+    }
+
+    .confirm h2 {
+      margin: 0 0 8px;
+      font-size: 1.3rem;
+      font-weight: 700
+    }
+
+    .confirm p {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.7;
+      margin-bottom: 24px
+    }
+
+    .confirm p b {
+      color: var(--cream);
+      font-weight: 600
+    }
+
+    .confirm .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-size: .85rem;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+      transition: opacity .25s, transform .25s;
+      z-index: 60;
+      max-width: calc(100% - 32px);
+      text-align: center
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0)
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      dialog[open] {
+        animation: none
+      }
+
+      .toast,
+      .side {
+        transition: none !important
+      }
+    }
+
+    @media (max-width:980px) {
+      .stats {
+        gap: 14px
+      }
+
+      .stat {
+        padding: 18px
+      }
+    }
+
+    @media (max-width:760px) {
+      .stats {
+        grid-template-columns: 1fr
+      }
+
+      .head {
+        flex-direction: column;
+        align-items: stretch
+      }
+
+      .head .btn {
+        width: 100%
+      }
+
+      .cnt {
+        margin-left: 0;
+        width: 100%
+      }
+
+      .srch {
+        max-width: none
+      }
+
+      table,
+      tbody {
+        display: block
+      }
+
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0)
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px 12px;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line)
+      }
+
+      td {
+        padding: 0;
+        border: 0
+      }
+
+      .c-cust {
+        grid-column: 1;
+        grid-row: 1
+      }
+
+      .c-stat {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: start
+      }
+
+      .c-act {
+        grid-column: 1/-1
+      }
+
+      .act {
+        justify-content: flex-start
+      }
+
+      .act .btn.sm {
+        padding: 10px 18px
+      }
+
+      .pg,
+      .bar {
+        padding: 16px 18px
+      }
+
+      .two {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media (max-width:480px) {
+      .df .sp {
+        margin-left: 0;
+        width: 100%
+      }
+
+      .df .sp .btn {
+        flex: 1
+      }
+
+      .del {
+        width: 100%;
+        justify-content: center
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24">
+      <path d="M3 11l9-8 9 8" />
+      <path d="M5 10v10h14V10" />
+      <path d="M10 20v-6h4v6" />
+    </symbol>
+    <symbol id="i-list" viewBox="0 0 24 24">
+      <path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01" />
+    </symbol>
+    <symbol id="i-users" viewBox="0 0 24 24">
+      <circle cx="9" cy="8" r="3.500" />
+      <path d="M2.500 20c0-3.500 2.800-6 6.500-6s6.500 2.500 6.500 6" />
+      <path d="M16 4.500a3.500 3.500 0 0 1 0 7M18 14.500c2.200.8 3.500 2.700 3.500 5.500" />
+    </symbol>
+    <symbol id="i-card" viewBox="0 0 24 24">
+      <rect x="3" y="5.500" width="18" height="13" rx="2.500" />
+      <path d="M3 10h18M7 15h3" />
+    </symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="16" rx="2.500" />
+      <path d="M3 10h18M8 3v4M16 3v4M8 15l2.500 2.500L16 13" />
+    </symbol>
+    <symbol id="i-set" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3" />
+      <path
+        d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M5.600 18.400l2.100-2.100M16.300 7.700l2.100-2.100" />
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-3.500-3.500" />
+    </symbol>
+    <symbol id="i-down" viewBox="0 0 24 24">
+      <path d="M6 9l6 6 6-6" />
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14" />
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24">
+      <path d="M5 5l14 14M19 5L5 19" />
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" />
+    </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24">
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </symbol>
+  </svg>
+
+  <div class="dash-layout">
+    <!-- Mobile Backdrop Overlay -->
+    <div class="dash-backdrop" id="dashBackdrop"></div>
+
+    <!-- Unified Sidebar -->
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Navigasi Pengelola">
+      <div class="dash-sidebar-header">
+        <a class="dash-brand" href="Catering Bunda Rahma – Kelola Pelanggan.html">
+          <img src="logo.webp" alt="Logo Catering Bunda Rahma" width="40" height="40">
+          <div>
+            <div class="dash-brand-title">Catering Bunda Rahma</div>
+            <span class="dash-brand-badge">Admin Panel</span>
+          </div>
+        </a>
+        <button class="dash-sidebar-close" id="dashSidebarClose" aria-label="Tutup sidebar">&times;</button>
+      </div>
+
+      <nav class="dash-nav">
+        <div class="dash-nav-section">Menu Utama</div>
+        <a class="dash-nav-item active" href="Catering Bunda Rahma – Kelola Pelanggan.html" aria-current="page">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <span>Kelola Pelanggan</span>
+        </a>
+        <a class="dash-nav-item " href="Catering Bunda Rahma – Kelola menu.html">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01" />
+          </svg>
+          <span>Kelola Menu</span>
+        </a>
+        <a class="dash-nav-item " href="Catering Bunda Rahma – Kelola Langganan.html">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span>Kelola Langganan</span>
+        </a>
+
+        <div class="dash-nav-section">Navigasi Luar</div>
+        <a class="dash-nav-item" href="Catering Bunda Rahma – Landing Page.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <span>Lihat Website ↗</span>
+        </a>
+        <a class="dash-nav-item logout" href="Catering Bunda Rahma – Login.html">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          <span>Keluar / Logout</span>
+        </a>
+      </nav>
+
+      <div class="dash-sidebar-footer">
+        <div class="dash-avatar">BR</div>
+        <div class="dash-user-info">
+          <div class="dash-user-name">Bunda Rahma</div>
+          <div class="dash-user-role">Owner</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="dash-content">
+      <header class="dash-topbar">
+        <div class="dash-topbar-left">
+          <button class="dash-burger" id="dashBurger" aria-label="Buka navigasi sidebar">
+            <svg viewBox="0 0 24 24">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <div class="dash-breadcrumb">
+            <span>Panel Admin</span>
+            <span>/</span>
+            <b>Kelola Pelanggan</b>
+          </div>
+        </div>
+        <div class="dash-topbar-right"></div>
+      </header>
+
+      <main class="dash-body">
+
+        <div class="head">
+          <div>
+            <h1>Kelola Pelanggan</h1>
+            <p>Daftar seluruh pelanggan dan admin, tambah akun admin baru, ubah role, dan kelola status akun.</p>
+          </div>
+          <button class="btn" type="button" id="add"><svg class="i">
+              <use href="#i-plus" />
+            </svg>Tambah User</button>
+        </div>
+
+        <section class="stats" aria-label="Ringkasan">
+          <div class="stat"><span>Total Pelanggan</span><strong id="s-total">1.240</strong><small>+12% dari bulan
+              lalu</small></div>
+          <div class="stat"><span>Aktif Saat Ini</span><strong id="s-aktif">1.120</strong><small>+5% dari bulan
+              lalu</small></div>
+          <div class="stat"><span>Penghasilan Bulanan</span><strong>Rp 24.500.000</strong><small class="dn">-2% dari
+              bulan lalu</small></div>
+        </section>
+
+        <section class="panel" aria-label="Daftar pelanggan">
+          <div class="bar">
+            <div class="srch"><svg class="i">
+                <use href="#i-search" />
+              </svg><label class="sr" for="q">Cari pelanggan</label><input class="field" id="q" type="search"
+                placeholder="Cari nama atau email user..." autocomplete="off"></div>
+            <div class="sel"><label class="sr" for="flt">Filter status</label>
+              <select class="field" id="fltRole" style="margin-right:8px">
+                <option value="">Semua Role</option>
+                <option value="Pelanggan">Pelanggan</option>
+                <option value="Admin">Admin</option>
+              </select>
+              <select class="field" id="flt">
+                <option value="">Semua Status</option>
+                <option value="Aktif">Aktif</option>
+                <option value="Suspend">Suspend (Ditangguhkan)</option>
+                <option value="Tidak Aktif">Tidak Aktif</option>
+              </select>
+              <svg class="i">
+                <use href="#i-down" />
+              </svg>
+            </div>
+            <p class="cnt" id="cnt" aria-live="polite"></p>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">User</th>
+                <th scope="col">Role</th>
+                <th scope="col">Status Akun</th>
+                <th scope="col" class="r">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody id="rows">
+              <!-- skeleton loader: ditampilkan sebelum JS render data -->
+              <tr class="skeleton-row" aria-hidden="true"><td colspan="4" style="padding:0"><div class="skeleton-row"><span class="skel skel-avatar"></span><div class="skel-block"><span class="skel skel-line w-3-4"></span><span class="skel skel-line w-1-2" style="margin-top:4px"></span></div><span class="skel skel-line w-1-4" style="flex:none;width:60px"></span></div></td></tr>
+              <tr class="skeleton-row" aria-hidden="true"><td colspan="4" style="padding:0"><div class="skeleton-row"><span class="skel skel-avatar"></span><div class="skel-block"><span class="skel skel-line w-full"></span><span class="skel skel-line w-3-4" style="margin-top:4px"></span></div><span class="skel skel-line w-1-4" style="flex:none;width:60px"></span></div></td></tr>
+              <tr class="skeleton-row" aria-hidden="true"><td colspan="4" style="padding:0"><div class="skeleton-row"><span class="skel skel-avatar"></span><div class="skel-block"><span class="skel skel-line w-1-2"></span><span class="skel skel-line w-3-4" style="margin-top:4px"></span></div><span class="skel skel-line w-1-4" style="flex:none;width:60px"></span></div></td></tr>
+            </tbody>
+          </table>
+          <div class="pg">
+            <p id="info"></p>
+            <nav class="pager" id="pager" aria-label="Halaman"></nav>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="dash-footer">
+        <span>&copy; 2026 Catering Bunda Rahma &bull; Panel Pengelola</span>
+        <span>Enak &bull; Lezat &bull; Tepat Waktu</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Dialog tambah / detail / edit -->
+  <dialog id="dForm" aria-labelledby="f-title">
+    <div class="dh">
+      <h2 id="f-title"></h2><button class="x" type="button" data-close aria-label="Tutup"><svg class="i">
+          <use href="#i-x" />
+        </svg></button>
+    </div>
+    <form class="dform" id="form" novalidate>
+      <p class="dsub" id="f-sub"></p>
+      <fieldset id="fs">
+        <div class="fg"><label for="f-nama">Nama lengkap</label><input class="field" id="f-nama" autocomplete="off"
+            required aria-describedby="e-nama">
+          <p class="err" id="e-nama" aria-live="polite"></p>
+        </div>
+        <div class="fg"><label for="f-email">Email</label><input class="field" id="f-email" type="email"
+            autocomplete="off" required aria-describedby="e-email">
+          <p class="err" id="e-email" aria-live="polite"></p>
+        </div>
+        <div class="two">
+          <div class="fg">
+            <label for="f-role">Role User</label>
+            <div class="sel">
+              <select class="field" id="f-role">
+                <option value="Pelanggan">Pelanggan</option>
+                <option value="Admin">Admin</option>
+              </select>
+              <svg class="i">
+                <use href="#i-down" />
+              </svg>
+            </div>
+          </div>
+          <div class="fg">
+            <label for="f-status">Status Akun</label>
+            <div class="sel">
+              <select class="field" id="f-status">
+                <option value="Aktif">Aktif</option>
+                <option value="Suspend">Suspend (Nonaktif)</option>
+                <option value="Tidak Aktif">Tidak Aktif</option>
+              </select>
+              <svg class="i">
+                <use href="#i-down" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </fieldset>
+      <div class="df">
+        <button class="del" type="button" id="f-del"><svg class="i">
+            <use href="#i-trash" />
+          </svg>Hapus pelanggan</button>
+        <div class="sp">
+          <button class="btn ghost" type="button" data-close id="f-cancel">Batal</button>
+          <button class="btn" type="button" id="f-edit">Edit</button>
+          <button class="btn" type="submit" id="f-save">Simpan perubahan</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Dialog konfirmasi hapus -->
+  <dialog id="dDel" aria-labelledby="d-title" aria-describedby="d-text">
+    <div class="confirm">
+      <div class="ic"><svg class="i">
+          <use href="#i-trash" />
+        </svg></div>
+      <h2 id="d-title">Hapus pelanggan?</h2>
+      <p id="d-text"></p>
+      <div class="row">
+        <button class="btn ghost" type="button" id="d-no" autofocus>Batal</button>
+        <button class="btn danger" type="button" id="d-yes">Ya, hapus</button>
+      </div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+
+      var AV = [
+        'data:image/webp;base64,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',
+        'data:image/webp;base64,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'
+      ];
+
+      var L = [
+        { id: 1, name: 'Budi Santoso', email: 'budi.santoso@example.com', role: 'Pelanggan', paket: 'Premium Yearly', status: 'Aktif', av: AV[0] },
+        { id: 2, name: 'Siti Aminah', email: 'siti.aminah@example.com', role: 'Pelanggan', paket: 'Basic Monthly', status: 'Aktif', av: AV[1] },
+        { id: 3, name: 'Admin Rahma', email: 'admin@cateringbunda.id', role: 'Admin', paket: 'Akses Penuh', status: 'Aktif' },
+        { id: 4, name: 'Rudi Hartono', email: 'rudi.hartono@example.com', role: 'Pelanggan', paket: 'Enterprise', status: 'Suspend' },
+        { id: 5, name: 'Lestari Putri', email: 'lestari.putri@example.com', role: 'Pelanggan', paket: 'Premium Yearly', status: 'Aktif' },
+        { id: 6, name: 'Staff Joko', email: 'joko.staff@cateringbunda.id', role: 'Admin', paket: 'Operasional', status: 'Aktif' },
+        { id: 7, name: 'Andi Wijaya', email: 'andi.wijaya@example.com', role: 'Pelanggan', paket: 'Basic Monthly', status: 'Aktif' },
+        { id: 8, name: 'Hendra Kusuma', email: 'hendra.kusuma@example.com', role: 'Pelanggan', paket: 'Tanpa Paket', status: 'Tidak Aktif' },
+        { id: 9, name: 'Maya Sari', email: 'maya.sari@example.com', role: 'Pelanggan', paket: 'Enterprise', status: 'Aktif' },
+        { id: 10, name: 'Intan Permata', email: 'intan.permata@example.com', role: 'Pelanggan', paket: 'Premium Yearly', status: 'Aktif' }
+      ];
+
+      var PER = 5, page = 1, q = '', fltStatus = '', fltRole = '', nextId = 11, editing = null, mode = 'add';
+      var fmt = function (n) { return n.toLocaleString('id-ID'); };
+
+      function el(t, c, x) {
+        var e = document.createElement(t);
+        if (c) e.className = c;
+        if (x != null) e.textContent = x;
+        return e;
+      }
+
+      function avatar(c) {
+        if (c.av) {
+          var i = el('img', 'av'); i.src = c.av; i.alt = ''; i.width = 40; i.height = 40; return i;
+        }
+        return el('span', 'av', c.name.split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase());
+      }
+
+      function view() {
+        return L.filter(function (c) {
+          var matchQ = !q || (c.name + ' ' + c.email).toLowerCase().indexOf(q) > -1;
+          var matchStatus = !fltStatus || c.status === fltStatus;
+          var matchRole = !fltRole || c.role === fltRole;
+          return matchQ && matchStatus && matchRole;
+        });
+      }
+
+      function render() {
+        var v = view(), pages = Math.max(1, Math.ceil(v.length / PER));
+        if (page > pages) page = pages;
+        var s = (page - 1) * PER, items = v.slice(s, s + PER);
+        var body = $('rows'); body.textContent = '';
+
+        if (!items.length) {
+          var tr = el('tr'), td = el('td', 'empty', 'Tidak ada data user yang cocok.');
+          td.colSpan = 4; tr.appendChild(td); body.appendChild(tr);
+        }
+
+        items.forEach(function (c) {
+          var tr = el('tr');
+          // Kolom 1: User (Nama & Email)
+          var t1 = el('td', 'c-cust'), w = el('div', 'who'), n = el('div');
+          n.appendChild(el('b', 0, c.name));
+          n.appendChild(el('small', 0, c.email));
+          w.appendChild(avatar(c)); w.appendChild(n); t1.appendChild(w);
+
+          // Kolom 2: Role
+          var t2 = el('td', 'c-role');
+          var rBadge = el('span', 'badge ' + (c.role === 'Admin' ? 'badge-yellow' : 'badge-cream'), c.role);
+          t2.appendChild(rBadge);
+
+          // Kolom 3: Status Akun
+          var t4 = el('td', 'c-stat');
+          var sClass = c.status === 'Aktif' ? 'b-on' : (c.status === 'Suspend' ? 'b-try' : 'b-off');
+          t4.appendChild(el('span', 'badge ' + sClass, c.status));
+
+          // Kolom 4: Tindakan
+          var t5 = el('td', 'c-act'), a = el('div', 'act');
+          var d = el('button', 'btn ghost sm', 'Detail');
+          var u = el('button', 'btn sm', 'Edit');
+          d.type = u.type = 'button';
+          d.onclick = function () { openForm('view', c); };
+          u.onclick = function () { openForm('edit', c); };
+          a.appendChild(d); a.appendChild(u); t5.appendChild(a);
+
+          tr.appendChild(t1); tr.appendChild(t2); tr.appendChild(t4); tr.appendChild(t5);
+          body.appendChild(tr);
+        });
+
+        // Update KPI
+        var totalUsers = L.length;
+        var activeUsers = L.filter(function (c) { return c.status === 'Aktif'; }).length;
+        var adminCount = L.filter(function (c) { return c.role === 'Admin'; }).length;
+        $('s-total').textContent = fmt(totalUsers);
+        $('s-aktif').textContent = fmt(activeUsers);
+        $('cnt').textContent = 'Menampilkan ' + items.length + ' dari ' + v.length + ' user';
+        $('info').textContent = items.length ? 'Menampilkan ' + (s + 1) + '-' + (s + items.length) + ' dari ' + v.length + ' user' : 'Tidak ada data';
+
+        // Pager
+        var pg = $('pager'); pg.textContent = '';
+        function pb(label, p, dis, cur) {
+          var b = el('button', 0, label); b.type = 'button'; b.disabled = !!dis;
+          if (cur) b.setAttribute('aria-current', 'page');
+          b.onclick = function () { page = p; render(); };
+          pg.appendChild(b);
+        }
+        pb('Sebelumnya', page - 1, page <= 1);
+        for (var i = 1; i <= pages; i++) pb(String(i), i, false, i === page);
+        pb('Berikutnya', page + 1, page >= pages);
+      }
+
+      /* Toast Notification (Sesuai Use Case 5 Langkah 10 & 11) */
+      var tt;
+      function toast(m) {
+        var t = $('toast'); t.textContent = m; t.classList.add('show');
+        clearTimeout(tt); tt = setTimeout(function () { t.classList.remove('show'); }, 3000);
+      }
+
+      /* Dialog Tambah / Detail / Edit User */
+      var dF = $('dForm'), dD = $('dDel'), form = $('form');
+      var fRole = $('f-role');
+
+      function setMode(m) {
+        mode = m;
+        var T = {
+          add: ['Tambah User Baru', 'Buat akun pelanggan atau admin baru dalam sistem.'],
+          view: ['Detail Akun User', 'Informasi akun, role, dan hak akses pelanggan/admin.'],
+          edit: ['Edit Data User', 'Perbarui data, role, atau ubah status akun user.']
+        }[m];
+        $('f-title').textContent = T[0]; $('f-sub').textContent = T[1];
+        $('fs').disabled = (m === 'view');
+        $('f-del').hidden = (m !== 'edit'); $('f-edit').hidden = (m !== 'view'); $('f-save').hidden = (m === 'view');
+        $('f-save').textContent = m === 'add' ? 'Simpan User' : 'Simpan Perubahan';
+        $('f-cancel').textContent = m === 'view' ? 'Tutup' : 'Batal';
+      }
+
+      function clearErr() {
+        ['nama', 'email'].forEach(function (k) {
+          var errEl = $('e-' + k); if (errEl) errEl.textContent = '';
+          var inp = $('f-' + k); if (inp) inp.removeAttribute('aria-invalid');
+        });
+      }
+
+      function openForm(m, c) {
+        editing = c || null; clearErr();
+        $('f-nama').value = c ? c.name : '';
+        $('f-email').value = c ? c.email : '';
+        $('f-role').value = c ? c.role : 'Pelanggan';
+        $('f-status').value = c ? c.status : 'Aktif';
+
+        setMode(m); dF.showModal();
+        if (m !== 'view') $('f-nama').focus(); else $('f-edit').focus();
+      }
+
+      $('add').onclick = function () { openForm('add'); };
+      $('f-edit').onclick = function () { setMode('edit'); $('f-nama').focus(); };
+
+      function bad(k, msg) {
+        var errEl = $('e-' + k); if (errEl) errEl.textContent = msg;
+        var inp = $('f-' + k); if (inp) inp.setAttribute('aria-invalid', 'true');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault(); clearErr();
+        var n = $('f-nama').value.trim(), em = $('f-email').value.trim(), ok = true;
+        if (n.length < 2) { bad('nama', 'Isi nama user minimal 2 karakter.'); ok = false; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+          bad('email', 'Masukkan format email yang valid.'); ok = false;
+        } else if (L.some(function (c) { return c !== editing && c.email.toLowerCase() === em.toLowerCase(); })) {
+          bad('email', 'Email sudah terdaftar di sistem.'); ok = false;
+        }
+        if (!ok) { form.querySelector('[aria-invalid="true"]').focus(); return; }
+
+        var r = $('f-role').value, st = $('f-status').value;
+
+        if (mode === 'add') {
+          L.unshift({ id: nextId++, name: n, email: em, role: r, status: st });
+          page = 1;
+          toast('✓ Akun ' + r + ' (' + n + ') berhasil dibuat! Log audit tercatat.');
+        } else {
+          editing.name = n; editing.email = em; editing.role = r; editing.status = st;
+          toast('✓ Perubahan user ' + n + ' disimpan! Notifikasi telah dikirimkan.');
+        }
+        dF.close(); render();
+      });
+
+      [].forEach.call(document.querySelectorAll('[data-close]'), function (b) { b.onclick = function () { dF.close(); }; });
+      dF.addEventListener('click', function (e) { if (e.target === dF) dF.close(); });
+
+      /* Konfirmasi Hapus / Nonaktifkan User (Use Case 5 Alternatif A4) */
+      $('f-del').onclick = function () {
+        var t = $('d-text'); t.textContent = '';
+        t.appendChild(document.createTextNode('User '));
+        t.appendChild(el('b', 0, editing.name));
+        t.appendChild(document.createTextNode(' akan dihapus dari sistem. Tindakan ini dicatat dalam log audit.'));
+        dF.close(); dD.showModal();
+      };
+
+      $('d-no').onclick = function () { dD.close(); };
+      dD.addEventListener('click', function (e) { if (e.target === dD) dD.close(); });
+      $('d-yes').onclick = function () {
+        var n = editing.name;
+        L = L.filter(function (c) { return c !== editing; });
+        editing = null; dD.close(); render();
+        toast('✓ Akun user ' + n + ' berhasil dihapus dari sistem.');
+      };
+
+      /* Pencarian & Filter (Role + Status) */
+      $('q').addEventListener('input', function () { q = this.value.trim().toLowerCase(); page = 1; render(); });
+      $('flt').addEventListener('change', function () { fltStatus = this.value; page = 1; render(); });
+      var fltRoleEl = $('fltRole');
+      if (fltRoleEl) {
+        fltRoleEl.addEventListener('change', function () { fltRole = this.value; page = 1; render(); });
+      }
+
+      render();
+    })();
+  </script>
+
+</body>
+
+</html>
